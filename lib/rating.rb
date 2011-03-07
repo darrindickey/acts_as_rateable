@@ -18,18 +18,18 @@ class Rating < ActiveRecord::Base
     #
     def parse_as(ratings, output = :xml)
       if output == :xml
-        ratings.to_xml(:only => [:user_id, :free_text], :methods => [:rate_score])
+        ratings.to_xml(:only => [:user_id, :free_text], :methods => [:score])
       elsif output == :json
-        ratings.to_json(:only => [:user_id, :free_text], :methods => [:rate_score])
+        ratings.to_json(:only => [:user_id, :free_text], :methods => [:score])
       end
     end
 
   end # end class methods
 
   ##
-  # Returns this rating's rate score, e.g. 6
+  # Returns this rating's score, e.g. 6
   #
-  def rate_score
+  def score
     rate.score
   end
 
