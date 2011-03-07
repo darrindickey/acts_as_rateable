@@ -7,7 +7,6 @@ class ActsAsRateableMigration < ActiveRecord::Migration
     create_table :ratings do |t|
     	t.column :user_id, :integer
       t.column :rate_id, :integer
-      t.column :free_text, :text
       t.column :rateable_id, :integer
       t.column :rateable_type, :string, :limit => 32
       t.timestamps
