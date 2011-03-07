@@ -31,6 +31,8 @@ Now your model is extended by the plugin, you can rate it ( 1-# )or calculate th
 
 @post.rated_by?( current_user ) #=> rating || false
 
+@post.parse_ratings(:json) #=> JSOn formatted string containing the post's ratings
+
 Post.find_average_of( 4 ) #=> array of posts
 
 See acts_as_rateable.rb for further details!
