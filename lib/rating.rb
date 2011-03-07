@@ -11,16 +11,18 @@ class Rating < ActiveRecord::Base
     #
     # === Parameters
     #
-    # [rating] the array of Rating records
+    # [ratings] the array of Rating records
     # [output] the requested output format, must be :xml or :json
     #
     # @return the "ratings" in the requested structure, e.g. xml format string
     #
     def parse_as(ratings, output = :xml)
       if output == :xml
-        ratings.to_xml(:only => [:user_id, :free_text], :methods => [:score])
+        ratings.to_xml(:only => [:user_id, :free_text, :rater_name, :created_at],
+                       :methods => [:score])
       elsif output == :json
-        ratings.to_json(:only => [:user_id, :free_text], :methods => [:score])
+        ratings.to_json(:only => [:user_id, :free_text, :rater_name, :created_at],
+                        :methods => [:score])
       end
     end
 

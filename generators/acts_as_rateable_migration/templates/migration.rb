@@ -10,6 +10,7 @@ class ActsAsRateableMigration < ActiveRecord::Migration
       t.column :rateable_id, :integer
       t.column :rateable_type, :string, :limit => 32
       t.column :free_text, :text
+      t.column :rater_name, :string
       t.timestamps
     end
 
