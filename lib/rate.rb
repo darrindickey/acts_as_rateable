@@ -6,5 +6,6 @@ class Rate < ActiveRecord::Base
   validates_numericality_of :score, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10
 	
 	attr_accessor :user_id
-  
+	attr_accessor :free_text
+
 end

@@ -4,17 +4,18 @@ module ActiveRecord
       def self.included(base)
         base.extend(ClassMethods)
       end
-    
+
       module AssignRateWithUserId
 			  def <<( rate )
 			      r = Rating.new
 			      r.rate = rate
 			      r.rateable = proxy_owner
 			      r.user_id = rate.user_id
+            r.free_text = rate.free_text
 			      r.save
 			  end
-			end 
-			
+			end
+
 	    module ClassMethods
 	      def acts_as_rateable(options = {})
 	        has_many :ratings, :as => :rateable, :dependent => :destroy, :include => :rate
@@ -34,13 +35,14 @@ module ActiveRecord
 			
 			module InstanceMethods
 				# Rates the object by a given score. A user object can be passed to the method.
-				def rate_it( score, user_id )
+				def rate_it( score, user_id, free_text = "" )
 					return unless score
 					rate = Rate.find_or_create_by_score( score.to_i )
 					rate.user_id = user_id
+          rate.free_text = free_text
 					rates << rate
 				end
-				
+
 				# Calculates the average rating. Calculation based on the already given scores.
 				def average_rating
 					return 0 if rates.empty?
@@ -59,7 +61,7 @@ module ActiveRecord
 					average_rating * f
 				end
 				
-				# Checks wheter a user rated the object or not.
+				# Checks whether a user rated the object or not.
 				def rated_by?( user )
 					ratings.detect {|r| r.user_id == user.id }
 				end
