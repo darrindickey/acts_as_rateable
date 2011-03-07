@@ -64,7 +64,11 @@ module ActiveRecord
 				# Checks whether a user rated the object or not.
 				def rated_by?( user )
 					ratings.detect {|r| r.user_id == user.id }
-				end
+        end
+
+        def parse_ratings(output = :xml)
+          Rating.parse_as(ratings, output)
+        end
 			end
 			
 		end
